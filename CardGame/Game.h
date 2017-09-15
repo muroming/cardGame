@@ -13,6 +13,5 @@ class Game {
 public:
 	Game(Card**, Card**);
 	bool chooseAndPlayCard(int);
-	void creaturesFight(Card*, Card*);
 	void startGame();
 };

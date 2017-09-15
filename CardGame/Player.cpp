@@ -31,13 +31,17 @@ void Player::endTurn() {
 void Player::displayHand() {
 	cout << endl;
 	for (int i = 0; i < totalCards; i++) {
-		cout << hand[i]->getName() << " (" << hand[i]->getManacost() << ") ";
+		cout << i + 1 << ") " << hand[i]->getName() << " (" << hand[i]->getManacost() << ") ";
 		if (hand[i]->creature()) {
 			cout << "[" << hand[i]->getDmg() << "/" << hand[i]->getHp() << "]";
 		}
 		cout << endl;
 	}
 	cout << endl;
+}
+
+void Player::displayStatus() {
+	cout << "Hp: " << hp << " Mana: " << mana << endl;
 }
 
 void Player::cardPlayed(int n) {

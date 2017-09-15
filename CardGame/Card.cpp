@@ -19,6 +19,7 @@ Card::Card(int m, string n, int h, int d) {
 	hp = h;
 	dmg = d;
 	isCreture = true;
+	isDead = false;
 }
 int Card::getManacost() {
 	return manacost;

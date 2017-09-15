@@ -10,6 +10,7 @@ using namespace std;
 void drawField(Field* f, Player* p1, Player* p2) {
 	system("cls");
 	int m = 10, n2 = f->getPlayerTwoTotal(), n1 = f->getPlayerOneTotal();
+	p2->displayStatus();
 	p2->displayHand();
 	Card** c2 = f->getPlayerTwoCreatures(), **c1 = f->getPlayerOneCreatures();
 	for (int i = 0; i < m; i++) {
@@ -36,5 +37,7 @@ void drawField(Field* f, Player* p1, Player* p2) {
 			cout << " ";
 		}
 	}
+	cout << endl;
+	p1->displayStatus();
 	p1->displayHand();
 }

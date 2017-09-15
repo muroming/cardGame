@@ -21,8 +21,8 @@ int main()
 		get decks from data base
 	*/
 	for (int i = 0; i < 10; i++) {
-		deck1[i] = new Card(0, "ANUS", rand() % 4, rand() % 4);
-		deck2[i] = new Card(0, "ANUS", rand() % 4, rand() % 4);
+		deck1[i] = new Card(1, "ANUS", rand() % 4, rand() % 4);
+		deck2[i] = new Card(1, "ANUS", rand() % 4, rand() % 4);
 	}
 	Game* game = new Game(deck1, deck2);
 	game->startGame();

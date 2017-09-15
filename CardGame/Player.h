@@ -20,4 +20,5 @@ public:
 	void spendMana(int);
 	Card* getCardFromHandByNum(int);
 	void cardPlayed(int);
+	void displayStatus();
 };

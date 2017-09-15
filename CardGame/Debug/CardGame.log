@@ -1,5 +1,3 @@
-﻿  Game.cpp
-c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\game.cpp(12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\game.cpp(87): warning C4715: Game::chooseAndPlayCard: значение возвращается не при всех путях выполнения
+﻿  Field.cpp
   CardGame.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\CardGame\Debug\CardGame.exe
   CardGame.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\CardGame\Debug\CardGame.pdb (Partial PDB)

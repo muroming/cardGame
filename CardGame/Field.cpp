@@ -12,6 +12,29 @@ int Field::getPlayerTwoTotal() {
 	return playerTwoTotal;
 }
 
+Card* Field::getCreature(int num, int player) {
+	if (player == 1) {
+		return playerOneCreatures[num - 1];
+	}
+	if (player == 2) {
+		return playerTwoCreatures[num - 1];
+	}
+	return nullptr;
+}
+
+void Field::creaturesCheck() {
+	for (int i = 0; i < playerOneTotal; i++) {
+		if (playerOneCreatures[i]->getHp() <= 0) {
+			destroyCreature(playerOneCreatures[i]);
+		}
+	}
+	for (int i = 0; i < playerTwoTotal; i++) {
+		if (playerTwoCreatures[i]->getHp() <= 0) {
+			destroyCreature(playerTwoCreatures[i]);
+		}
+	}
+}
+
 Card** Field::getPlayerOneCreatures() {
 	return playerOneCreatures;
 }
@@ -20,17 +43,24 @@ Card** Field::getPlayerTwoCreatures() {
 	return playerTwoCreatures;
 }
 
-void Field::creaturesFight(Card* attacking, Card* defending) {
+bool Field::creaturesFight(Card* attacking, Card* defending) {
 	defending->takeDmg(attacking->getDmg());
+	attacking->takeDmg(defending->getDmg());
 	if (defending->dead()) {
 		destroyCreature(defending);
 	}
+	if (attacking->dead()) {
+		destroyCreature(attacking);
+	}
+	return true;
 }
 
 void Field::destroyCreature(Card* card) {
 	for (int i = 0; i < playerOneTotal; i++) {
 		if (playerOneCreatures[i] == card) {
-			playerOneCreatures[i] = nullptr;
+			for (int j = i; j <= playerOneTotal - 1; j++) {
+				playerOneCreatures[j] = playerOneCreatures[j + 1];
+			}
 			delete card;
 			playerOneTotal--;
 			return;
@@ -38,7 +68,9 @@ void Field::destroyCreature(Card* card) {
 	}
 	for (int i = 0; i < playerTwoTotal; i++) {
 		if (playerTwoCreatures[i] == card) {
-			playerTwoCreatures[i] = nullptr;
+			for (int j = i; j <= playerTwoTotal - 1; j++) {
+				playerTwoCreatures[j] = playerTwoCreatures[j + 1];
+			}
 			delete card;
 			playerTwoTotal--;
 			return;
