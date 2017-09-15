@@ -8,6 +8,17 @@
 
 using namespace std;
 
+Card* Player::getCardFromHandByNum(int num) {
+	return hand[num - 1];
+}
+
+int Player::getMana() {
+	return mana;
+}
+
+void Player::spendMana(int m) {
+	mana -= m;
+}
 
 bool Player::active() {
 	return isActive;
@@ -18,9 +29,23 @@ void Player::endTurn() {
 }
 
 void Player::displayHand() {
+	cout << endl;
 	for (int i = 0; i < totalCards; i++) {
-		cout << hand[i]->getName() << " (" << hand[i]->getManacost() << ")" << endl;
+		cout << hand[i]->getName() << " (" << hand[i]->getManacost() << ") ";
+		if (hand[i]->creature()) {
+			cout << "[" << hand[i]->getDmg() << "/" << hand[i]->getHp() << "]";
+		}
+		cout << endl;
 	}
+	cout << endl;
+}
+
+void Player::cardPlayed(int n) {
+	for (int i = n - 1; i < totalCards-1; i++) {
+		hand[i] = hand[i + 1];
+	}
+	hand[totalCards - 1] = nullptr;
+	totalCards--;
 }
 
 void Player::newGame() {
@@ -32,6 +57,7 @@ void Player::newGame() {
 	takeCard();
 	turn++;
 	takeCard();
+	deck = (deck + turn - 1);
 	turn = 0;
 }
 
@@ -39,10 +65,11 @@ void Player::newTurn() {
 	mana++;
 	turn++;
 	takeCard();
+	mana = turn;
 	isActive = true;
 }
 
-Player::Player(Card** d):hp(30), mana(0), isDead(0), totalCards(0) {
+Player::Player(Card** d):hp(30), mana(0), isDead(0), totalCards(0), isActive(0) {
 	srand(time(NULL));
 	hand = new Card*[maxCards];
 	deck = new Card*[deckSize];

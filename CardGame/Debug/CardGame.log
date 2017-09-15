@@ -1,15 +1,5 @@
-﻿  Field.cpp
-  Drawing.cpp
-  CardGame.cpp
-c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\cardgame.cpp(33): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  Card.cpp
-  Создание кода...
-c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\card.cpp(38): warning C4715: Card::dead: значение возвращается не при всех путях выполнения
-c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\card.cpp(44): warning C4715: Card::getDmg: значение возвращается не при всех путях выполнения
-c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\card.cpp(32): warning C4715: Card::getHp: значение возвращается не при всех путях выполнения
-  Компиляция...
-  Player.cpp
-c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\player.cpp(46): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  Создание кода...
+﻿  Game.cpp
+c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\game.cpp(12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\cardgame\cardgame\game.cpp(87): warning C4715: Game::chooseAndPlayCard: значение возвращается не при всех путях выполнения
   CardGame.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\CardGame\Debug\CardGame.exe
   CardGame.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\CardGame\Debug\CardGame.pdb (Partial PDB)

@@ -59,3 +59,7 @@ void Card::takeDmg(int d) {
 		}
 	}
 }
+
+bool Card::creature() {
+	return isCreture;
+}

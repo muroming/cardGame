@@ -1,13 +1,17 @@
 #include "stdafx.h"
 #include "Card.h"
+#include "Field.h"
+#include "Player.h"
 #include <iostream>
 
 using namespace std;
 
 
-void drawField(Card** p1, Card** p2, int n1, int n2) {
+void drawField(Field* f, Player* p1, Player* p2) {
 	system("cls");
-	int m = 10;
+	int m = 10, n2 = f->getPlayerTwoTotal(), n1 = f->getPlayerOneTotal();
+	p2->displayHand();
+	Card** c2 = f->getPlayerTwoCreatures(), **c1 = f->getPlayerOneCreatures();
 	for (int i = 0; i < m; i++) {
 		cout << "|  " << i + 1 << "  |";
 		if (i != m - 1) {
@@ -16,7 +20,7 @@ void drawField(Card** p1, Card** p2, int n1, int n2) {
 	}
 	cout << endl;
 	for (int i = 0; i < n2; i++) {
-		cout << " " << (p2[i]->getDmg()) << "/" << p2[i]->getHp() << " ";
+		cout << "  " << (c2[i]->getDmg()) << "/" << c2[i]->getHp() << "  ";
 		if (i != n2 - 1) {
 			cout << " ";
 		}
@@ -27,9 +31,10 @@ void drawField(Card** p1, Card** p2, int n1, int n2) {
 	}
 	cout << endl;
 	for (int i = 0; i < n1; i++) {
-		cout << " " << (p1[i]->getDmg()) << "/" << p1[i]->getHp() << " ";
+		cout << "  " << (c1[i]->getDmg()) << "/" << c1[i]->getHp() << "  ";
 		if (i != n1 - 1) {
 			cout << " ";
 		}
 	}
+	p1->displayHand();
 }

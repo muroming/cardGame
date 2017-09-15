@@ -16,4 +16,8 @@ public:
 	void newGame();
 	void displayHand();
 	void endTurn();
+	int getMana();
+	void spendMana(int);
+	Card* getCardFromHandByNum(int);
+	void cardPlayed(int);
 };
