@@ -6,7 +6,7 @@ class Card{
 	int manacost; 
 	string name;
 	int dmg, hp;
-	bool isDead, isCreture;
+	bool isDead, isCreture, isActive;
 public:
 	Card();
 	Card(int, string);
@@ -19,6 +19,8 @@ public:
 	int getHp();
 	bool dead();
 	bool creature();
+	bool active();
+	void setActive(bool);
 };
 
 

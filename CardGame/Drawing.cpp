@@ -21,7 +21,12 @@ void drawField(Field* f, Player* p1, Player* p2) {
 	}
 	cout << endl;
 	for (int i = 0; i < n2; i++) {
-		cout << "  " << (c2[i]->getDmg()) << "/" << c2[i]->getHp() << "  ";
+		if (c2[i]->active()) {
+			cout << "  " << (c2[i]->getDmg()) << "/" << c2[i]->getHp() << "  ";
+		}
+		else {
+			cout << " (" << (c2[i]->getDmg()) << "/" << c2[i]->getHp() << ") ";
+		}
 		if (i != n2 - 1) {
 			cout << " ";
 		}
@@ -32,7 +37,12 @@ void drawField(Field* f, Player* p1, Player* p2) {
 	}
 	cout << endl;
 	for (int i = 0; i < n1; i++) {
-		cout << "  " << (c1[i]->getDmg()) << "/" << c1[i]->getHp() << "  ";
+		if (c1[i]->active()) {
+			cout << "  " << (c1[i]->getDmg()) << "/" << c1[i]->getHp() << "  ";
+		}
+		else {
+			cout << " (" << (c1[i]->getDmg()) << "/" << c1[i]->getHp() << ") ";
+		}
 		if (i != n1 - 1) {
 			cout << " ";
 		}

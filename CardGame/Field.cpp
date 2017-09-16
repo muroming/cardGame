@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include <string>
+#include <iostream>
 #include "Card.h"
 #include "Field.h"
 #define maxCreatures 10
@@ -44,15 +44,33 @@ Card** Field::getPlayerTwoCreatures() {
 }
 
 bool Field::creaturesFight(Card* attacking, Card* defending) {
-	defending->takeDmg(attacking->getDmg());
-	attacking->takeDmg(defending->getDmg());
-	if (defending->dead()) {
-		destroyCreature(defending);
+	if (attacking->active()) {
+		defending->takeDmg(attacking->getDmg());
+		attacking->takeDmg(defending->getDmg());
+		attacking->setActive(false);
+		if (defending->dead()) {
+			destroyCreature(defending);
+		}
+		if (attacking->dead()) {
+			destroyCreature(attacking);
+		}
+		return true;
 	}
-	if (attacking->dead()) {
-		destroyCreature(attacking);
+	cout << "Chosen creature is not active\n";
+	return false;
+}
+
+void Field::activeAll(int player) {
+	if (player == 1) {
+		for (int i = 0; i < playerOneTotal; i++) {
+			playerOneCreatures[i]->setActive(true);
+		}
 	}
-	return true;
+	else {
+		for (int i = 0; i < playerTwoTotal; i++) {
+			playerTwoCreatures[i]->setActive(true);
+		}
+	}
 }
 
 void Field::destroyCreature(Card* card) {
@@ -90,6 +108,7 @@ bool Field::addCreature(Card* c, int playerNum) {
 			playerOneCreatures[playerOneTotal++] = c;
 			return true;
 		}
+		cout << "Too many creatures\n";
 		return false;
 	}
 	if (playerNum == 2) {
@@ -98,6 +117,7 @@ bool Field::addCreature(Card* c, int playerNum) {
 			return true;
 		}
 		return false;
+		cout << "Too many creatures\n";
 	}
 	return false;
 }

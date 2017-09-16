@@ -12,6 +12,14 @@ Card::Card(int m, string n) :manacost(m) {
 	isCreture = false;
 }
 
+bool Card::active() {
+	return isActive;
+}
+
+void Card::setActive(bool act) {
+	isActive = act;
+}
+
 //Init for creatures
 Card::Card(int m, string n, int h, int d) {
 	manacost = m;
@@ -20,6 +28,7 @@ Card::Card(int m, string n, int h, int d) {
 	dmg = d;
 	isCreture = true;
 	isDead = false;
+	isActive = false;
 }
 int Card::getManacost() {
 	return manacost;

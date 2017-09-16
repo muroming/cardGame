@@ -4,9 +4,6 @@
 #include <ctime>
 #include <iostream>
 
-void creaturesFight(Card* attacking, Card* defending) {
-
-}
 
 void Game::startGame() {
 	srand(time(NULL));
@@ -19,57 +16,108 @@ void Game::startGame() {
 		p2->newTurn();
 	}
 	char a;
+	int n;
+	bool isOver;
 	do {
-		drawField(f, p1, p2);
-		std::cout << "(p)lay card/(c)ontinue: ";
-		std::cin >> a;
-		int n;
-		bool isOver;
-		if (a == 'p') {
-			isOver = false;
-			do {
-				std::cout << "Card num (-1 to exit): ";
-				std::cin >> n;
-				if (n == -1) {
-					break;
-				}
-				isOver = chooseAndPlayCard(n);
-			} while (!isOver);
+		if (p1->active()) {
+			f->activeAll(1);
 		}
-		drawField(f, p1, p2);
-		std::cout << "(a)ttack with creature/(c)ontinue: ";
-		std::cin >> a;
-		if (a == 'a') {
-			isOver = false;
-			do {
+		else {
+			f->activeAll(2);
+		}
+		//playing cards from hand
+		do {
+			drawField(f, p1, p2);
+			std::cout << "(p)lay card/(c)ontinue: ";
+			std::cin >> a;
+			if (a == 'p') {
+				isOver = false;
+				do {
+					std::cout << "Card num (-1 to exit): ";
+					std::cin >> n;
+					if (n == -1) {
+						break;
+					}
+					isOver = chooseAndPlayCard(n);
+				} while (!isOver);
+			}
+		} while (a != 'c');
+		f->creaturesCheck();
+		//Fighting
+		do{
+			drawField(f, p1, p2);
+			std::cout << "(a)ttack with creature/attack (p)layer/(c)ontinue: ";
+			std::cin >> a;
+			//atk creature
+			if (a == 'a') {
+				isOver = false;
+				do {
+					cout << "Attacking card num (-1 to exit): ";
+					cin >> n;
+					if (n == -1) {
+						break;
+					}
+					int p;
+					if (p1->active()) {
+						p = 1;
+					}
+					else {
+						p = 2;
+					}
+					Card* atk = f->getCreature(n, p);
+					cout << "Creature to attack num (-1 to rechoose): ";
+					cin >> n;
+					if (n == -1) {
+						continue;
+					}
+					if (p1->active()) {
+						p = 2;
+					}
+					else {
+						p = 1;
+					}
+					isOver = f->creaturesFight(atk, f->getCreature(n, p));
+				} while (!isOver);
+			}
+			f->creaturesCheck();
+			//atk player
+			if (a == 'p') {
 				cout << "Attacking card num (-1 to exit): ";
 				cin >> n;
 				if (n == -1) {
 					break;
 				}
-				int p;
+				
 				if (p1->active()) {
-					p = 1;
+					Card* c = f->getCreature(n, 1);
+					if (c->active()) {
+						p2->takeDmg(c->getDmg());
+						c->setActive(false);
+					}
+					else {
+						cout << "Chosen creature is not active\n";
+						_sleep(1000);
+					}
+					if (p2->dead()) {
+						break;
+					}
 				}
 				else {
-					p = 2;
+					Card* c = f->getCreature(n, 2);
+					if (c->active()) {
+						p1->takeDmg(c->getDmg());
+						c->setActive(false);
+					}
+					else {
+						cout << "Chosen creature is not active\n";
+						_sleep(1000);
+					}
+					if (p1->dead()) {
+						break;
+					}
 				}
-				Card* atk = f->getCreature(n, p);
-				cout << "Creature to attack num (-1 to rechoose): ";
-				cin >> n;
-				if (n == -1) {
-					continue;
-				}
-				if (p1->active()) {
-					p = 2;
-				}
-				else {
-					p = 1;
-				}
-				isOver = f->creaturesFight(atk, f->getCreature(n, p));
-			} while (!isOver);
-		}
-		f->creaturesCheck();
+			}
+		} while (a != 'c');
 		if (p1->active()) {
 			p1->endTurn();
 			p2->newTurn();
@@ -101,7 +149,7 @@ bool Game::chooseAndPlayCard(int n) {
 				return true;
 			}
 			else {
-				//warn
+				cout << "Not enougth mana\n";
 				return false;
 			}
 		}
@@ -118,7 +166,7 @@ bool Game::chooseAndPlayCard(int n) {
 					return true;
 				}
 				else {
-					//warn
+					cout << "Not enough mana\n";
 					return false;
 				}
 			}

@@ -16,4 +16,5 @@ public:
 	int getPlayerTwoTotal();
 	Card* getCreature(int creature, int player12);
 	void creaturesCheck();
+	void activeAll(int player12);
 };
